@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# use API.  https://shibe.online 
+API_GET_SHIBA_IMAGE="http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true"
+JSON_RESPONSE=$(curl -sS $API_GET_SHIBA_IMAGE)
+SHIBA_IMG_URL=$(echo $JSON_RESPONSE | jq ".[0]" | xargs echo)
+#echo $SHIBA_IMG_URL
+curl -sS --output ./shiba_image $SHIBA_IMG_URL
+
+# exec imgcat
+. ./imgcat shiba_image
+
+
